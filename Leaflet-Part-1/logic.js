@@ -45,7 +45,7 @@ function setColor(depth) {
 function setSize(size) {
   if(size === 0) {
     return 1;}
-    return size * 2.5};
+    return size * 3};
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // store URL for all earthquake data
@@ -80,7 +80,11 @@ function init() {
             let size = properties.mag;
             
             // create marker for each earthquake. bind popup with earthquake information
+            // stroke = false - disables borders on circles
             L.circleMarker([lat, lng], {
+                fillOpacity:1,
+                clickable: true,
+                stroke: true,
                 color: setColor(depth),
                 fillColor: setColor(depth),
                 radius: setSize(size)})
