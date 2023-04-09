@@ -62,8 +62,8 @@ function init() {
             
             // declare and initialize coordinate objects -- lat/long/depth
             let coords = features[f].geometry.coordinates;
-            console.log("testcoords:",coords)
-            
+            // console.log("testcoords:",coords)
+
             let lat = coords[1];
             let lng = coords[0];
             let depth = coords[2];
@@ -80,9 +80,9 @@ function init() {
                 radius: size})
             .bindPopup(`<h3>${location}</h3><br/>Magnitude: ${size}<br/>Depth: ${depth}`).addTo(allEarthquakes)};
     
-            // generate list of earthquake depths for color function
-            var allDepths = depthArray.map((e, i) => (e)).join('/')
-            console.log('All depths',allDepths);            
+            // // generate list of earthquake depths for color function
+            // var allDepths = depthArray.map((e, i) => (e)).join('/')
+            // console.log('All depths',allDepths);            
             
     });
 
