@@ -41,6 +41,12 @@ function setColor(depth) {
       return "#ff7c00";}
     return "#ff0000"}; 
 
+// define function to determine circle size
+function setSize(size) {
+  if(size === 0) {
+    return 1;}
+    return size * 2.5};
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // store URL for all earthquake data
 let urlEarthquakes = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson'
@@ -77,8 +83,9 @@ function init() {
             L.circleMarker([lat, lng], {
                 color: setColor(depth),
                 fillColor: setColor(depth),
-                radius: size})
-            .bindPopup(`<h3>${location}</h3><br/>Magnitude: ${size}<br/>Depth: ${depth}`).addTo(allEarthquakes)};
+                radius: setSize(size)})
+            .bindPopup(`<h3>${location}</h3><br/>Magnitude: ${size}<br/>Depth: ${depth}`).addTo(allEarthquakes)
+        };
     
             // // generate list of earthquake depths for color function
             // var allDepths = depthArray.map((e, i) => (e)).join('/')
