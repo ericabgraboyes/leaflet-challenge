@@ -58,7 +58,11 @@ function init() {
             let size = properties.mag;
             
             // create marker for each earthquake. bind popup with earthquake information
-            L.marker([lat, lng]).bindPopup(`<h3>${location}</h3><br/>Magnitude: ${size}<br/>Depth: ${depth}`).addTo(allEarthquakes)};    
+            L.circleMarker([lat, lng], {
+                color: "black",
+                fillColor: "black",
+                radius: size})
+            .bindPopup(`<h3>${location}</h3><br/>Magnitude: ${size}<br/>Depth: ${depth}`).addTo(allEarthquakes)};    
     });
 
     // add markers to map
