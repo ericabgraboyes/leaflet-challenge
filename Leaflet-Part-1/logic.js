@@ -26,29 +26,22 @@ let overlay = {
 L.control.layers(background, overlay).addTo(map);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+// color scheme: https://www.color-hex.com/color-palettes/?page=4
 // define function to determine circle color based on earthquake depth
+function setColor(depth) {
+    if(depth <= 10 ) {
+      return "#40ff00";}
+    else if (depth <= 30 ) {
+      return "#bfff00";}
+    if(depth <= 50) {
+      return "#ffff00" ;}
+    else if(depth <= 70) {
+      return "#ffd200";}
+    else if(depth <= 90) {
+      return "#ff7c00";}
+    return "#ff0000"}; 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // store URL for all earthquake data
 let urlEarthquakes = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson'
 
@@ -69,10 +62,11 @@ function init() {
             
             // declare and initialize coordinate objects -- lat/long/depth
             let coords = features[f].geometry.coordinates;
+            console.log("testcoords:",coords)
+            
             let lat = coords[1];
             let lng = coords[0];
             let depth = coords[2];
-            depthArray.push(depth);
 
             // declare and initialize properties objects
             let properties = features[f].properties;
@@ -81,8 +75,8 @@ function init() {
             
             // create marker for each earthquake. bind popup with earthquake information
             L.circleMarker([lat, lng], {
-                color: "black",
-                fillColor: "black",
+                color: setColor(depth),
+                fillColor: setColor(depth),
                 radius: size})
             .bindPopup(`<h3>${location}</h3><br/>Magnitude: ${size}<br/>Depth: ${depth}`).addTo(allEarthquakes)};
     
@@ -91,7 +85,7 @@ function init() {
             console.log('All depths',allDepths);            
             
     });
-    
+
     // add markers to map
     allEarthquakes.addTo(map);
 };
