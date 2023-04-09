@@ -27,6 +27,28 @@ L.control.layers(background, overlay).addTo(map);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// define function to determine circle color based on earthquake depth
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // store URL for all earthquake data
 let urlEarthquakes = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson'
 
@@ -62,9 +84,14 @@ function init() {
                 color: "black",
                 fillColor: "black",
                 radius: size})
-            .bindPopup(`<h3>${location}</h3><br/>Magnitude: ${size}<br/>Depth: ${depth}`).addTo(allEarthquakes)};    
+            .bindPopup(`<h3>${location}</h3><br/>Magnitude: ${size}<br/>Depth: ${depth}`).addTo(allEarthquakes)};
+    
+            // generate list of earthquake depths for color function
+            var allDepths = depthArray.map((e, i) => (e)).join('/')
+            console.log('All depths',allDepths);            
+            
     });
-
+    
     // add markers to map
     allEarthquakes.addTo(map);
 };
