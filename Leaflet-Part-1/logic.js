@@ -97,7 +97,10 @@ function init() {
             let properties = features[f].properties;
             let location = properties.place;
             let size = properties.mag;
-            
+
+            // convert time from milliseconds since epoch to normal date/time
+            let date = new Date (properties.time);
+
             // create marker for each earthquake. bind popup with earthquake information
             // stroke = false - disables borders on circles
             L.circleMarker([lat, lng], {
@@ -108,7 +111,7 @@ function init() {
                 weight: 0.25,
                 fillColor: setColor(depth),
                 radius: setSize(size)})
-            .bindPopup(`<h3>${location}</h3><br/>Magnitude: ${size}<br/>Depth: ${depth}`).addTo(allEarthquakes)
+            .bindPopup(`<h4>${location}</h4>Magnitude: ${size}<br/>Depth: ${depth}<br>Time: ${date.toLocaleDateString()}`).addTo(allEarthquakes)
         };
     
             // // generate list of earthquake depths for color function
