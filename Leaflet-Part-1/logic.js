@@ -15,7 +15,7 @@ let allEarthquakes = new L.LayerGroup();
 // initialize map with standard background -- lat/long are for san andreas fault line
 let map = L.map("map-id", {
 	center: [40.5, -90.5],
-	zoom: 3,
+	zoom: 4,
   layers: [standard]});
 
 // initialize overlay object to add to layer control.
@@ -104,7 +104,8 @@ function init() {
                 fillOpacity:1,
                 clickable: true,
                 stroke: true,
-                color: setColor(depth),
+                color: "black",
+                weight: 0.25,
                 fillColor: setColor(depth),
                 radius: setSize(size)})
             .bindPopup(`<h3>${location}</h3><br/>Magnitude: ${size}<br/>Depth: ${depth}`).addTo(allEarthquakes)
