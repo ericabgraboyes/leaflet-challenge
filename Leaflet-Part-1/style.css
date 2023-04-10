@@ -6,7 +6,7 @@ body,
   margin: 0;
 }
 
-/* Format the legend */
+/* Format the legend -- from chloropleth background documentation*/
 .legend {
   color: #555;
   padding: 6px 8px;
