@@ -14,7 +14,7 @@ let allEarthquakes = new L.LayerGroup();
 
 // initialize map with standard background -- lat/long are for san andreas fault line
 let map = L.map("map-id", {
-	center: [35.8, -119.4],
+	center: [40.5, -90.5],
 	zoom: 3,
   layers: [standard]});
 
@@ -46,6 +46,25 @@ function setSize(size) {
   if(size === 0) {
     return 1;}
     return size * 3};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// set up legend for circle markers
+  let legend = L.control({position: "bottomright"});
+  legend.onAdd = function() {
+    let div = L.DomUtil.create("div", "info legend");
+    const depths = ["<-10", 10, 30, 50, 70, 90];
+    const colors = ["#40ff00","#bfff00","#ffff00","#ffd200","#ff7c00","#ff0000"];
+    let legendTitle = "<h4>Depth in km</h4>"
+
+    div.innerHTML = legendTitle;
+
+  // use for loop to iterate through colors and depths; pair color with orresponding depth, using index position.
+    for (var i = 0; i < depths.length; i++) {
+      console.log(colors[i]);
+      div.innerHTML +=
+      "<i style=\"background: " + colors[i] + "\"></i>" +
+      depths[i] + (depths[i + 1] ? " to " + depths[i + 1] + "<br>" : "+");}
+    return div;};
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // store URL for all earthquake data
@@ -99,6 +118,10 @@ function init() {
 
     // add markers to map
     allEarthquakes.addTo(map);
+
+    // add legend to map
+    legend.addTo(map)
+    
 };
 
 init();
