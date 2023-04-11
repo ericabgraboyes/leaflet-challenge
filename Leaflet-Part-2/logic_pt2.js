@@ -10,16 +10,16 @@ var USGS_USTopo = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/servi
 });
 
 // // add third tile layer
-var dark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-	maxZoom: 20,
-	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+var Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+	maxZoom: 16
 });
 
 // initialize an object to hold map backgrounds options -- backgroundMaps.
 let background = {
     "Standard": standard,
     "Topographical": USGS_USTopo,
-    "Dark": dark
+    "Simple-Grayscale": Esri_WorldGrayCanvas
 };
 
 // declare LayerGroups for each dataset to plot
