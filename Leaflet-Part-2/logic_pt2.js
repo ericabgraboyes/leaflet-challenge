@@ -9,17 +9,16 @@ var USGS_USTopo = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/servi
 	attribution: 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
 });
 
-// add third tile layer
-var dark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-	maxZoom: 20,
-	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-});
+// // add third tile layer
+// var dark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+// 	maxZoom: 20,
+// 	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+// });
 
 // initialize an object to hold map backgrounds options -- backgroundMaps.
 let background = {
     "Standard": standard,
-    "Topographical": USGS_USTopo,
-    "Dark": dark
+    "Topographical": USGS_USTopo
 };
 
 // declare LayerGroups for each dataset to plot
