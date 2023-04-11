@@ -78,9 +78,14 @@ function init() {
 
         // declare and initialize objects for visualizations
         let features = data.features;
+        // console.log(data)
 
-        // initialize array to see all earthquake depths
-        let depthArray = []
+        // // initialize array to see all earthquake depths
+        // let depthArray = []
+
+        // // can also use .filter and arrow function to filter data; apply for loop to new variable. .filter function filters on all records
+        // let filteredata = features.filter(f => f.geometry.coordinates[2] >= 500)
+        // console.log(filteredata)
 
         // for loop to iterate through each earthquake
         for (var f = 0; f < features.length; f++) {
@@ -88,6 +93,9 @@ function init() {
             // declare and initialize coordinate objects -- lat/long/depth
             let coords = features[f].geometry.coordinates;
             // console.log("testcoords:",coords)
+
+            // //use conditional statement to filter records for given depth; filters all records 
+            // if (coords[2] >= 10) {
 
             let lat = coords[1];
             let lng = coords[0];
@@ -111,9 +119,9 @@ function init() {
                 weight: 0.25,
                 fillColor: setColor(depth),
                 radius: setSize(size)})
-            .bindPopup(`<h4>${location}</h4>Magnitude: ${size}<br/>Depth: ${depth}<br>Time: ${date.toLocaleDateString()}`).addTo(allEarthquakes)
+            .bindPopup(`<h4>${location}</h4><b>Magnitude</b>: ${size}<br/><b>Reported Depth (km):</b> ${depth} km<br>Time: ${date.toDateString()}`).addTo(allEarthquakes)
         };
-    
+      
             // // generate list of earthquake depths for color function
             // var allDepths = depthArray.map((e, i) => (e)).join('/')
             // console.log('All depths',allDepths);            
