@@ -1,70 +1,44 @@
-// initialize standard background using tile layer
-let standard =  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  });
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// functions to style earthquake markers / https://www.color-hex.com/color-palettes/?page=4 (color scheme)
 
-// initialize an object to hold map backgrounds options -- backgroundMaps.
-let background = {
-    "Standard": standard,
-};
-
-// declare LayerGroups for each dataset to plot
-//https://leafletjs.com/examples/layers-control/, https://leafletjs.com/reference.html#layergroup
-let allEarthquakes = new L.LayerGroup();
-
-// initialize map with standard background -- lat/long are for san andreas fault line
-let map = L.map("map-id", {
-	center: [40.5, -90.5],
-	zoom: 4,
-  layers: [standard]});
-
-// initialize overlay object to add to layer control.
-let overlay = {
-    "Earthquakes - All": allEarthquakes};
-
-// create control layer -- add overlay and background map
-L.control.layers(background, overlay).addTo(map);
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-// color scheme: https://www.color-hex.com/color-palettes/?page=4
 // define function to determine circle color based on earthquake depth
 function setColor(depth) {
-    if(depth <= 10 ) {
-      return "#40ff00";}
-    else if (depth <= 30 ) {
-      return "#bfff00";}
-    if(depth <= 50) {
-      return "#ffff00" ;}
-    else if(depth <= 70) {
-      return "#ffd200";}
-    else if(depth <= 90) {
-      return "#ff7c00";}
-    return "#ff0000"}; 
+  if(depth < 10 ) {
+    return "#40ff00";}
+  else if (depth < 30 ) {
+    return "#bfff00";}
+  if(depth < 50) {
+    return "#ffff00" ;}
+  else if(depth < 70) {
+    return "#ffd200";}
+  else if(depth < 90) {
+    return "#ff7c00";}
+  return "#ff0000"}; 
 
 // define function to determine circle size
 function setSize(size) {
-  if(size === 0) {
-    return 1;}
-    return size * 3};
+if(size === 0) {
+  return 1;}
+  return size * 3};
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // set up legend for circle markers
-  let legend = L.control({position: "bottomright"});
-  legend.onAdd = function() {
-    let div = L.DomUtil.create("div", "info legend");
-    const depths = ["<-10", 10, 30, 50, 70, 90];
-    const colors = ["#40ff00","#bfff00","#ffff00","#ffd200","#ff7c00","#ff0000"];
-    let legendTitle = "<h4>Depth in km</h4>"
+let legend = L.control({position: "bottomright"});
+legend.onAdd = function() {
+  let div = L.DomUtil.create("div", "info legend");
+  const depths = ["<-10", 10, 30, 50, 70, 90];
+  const colors = ["#40ff00","#bfff00","#ffff00","#ffd200","#ff7c00","#ff0000"];
+  let legendTitle = "<h4>Depth in km</h4>"
 
-    div.innerHTML = legendTitle;
+  div.innerHTML = legendTitle;
 
-  // use for loop to iterate through colors and depths; pair color with orresponding depth, using index position.
-    for (var i = 0; i < depths.length; i++) {
-      console.log(colors[i]);
-      div.innerHTML +=
-      "<i style=\"background: " + colors[i] + "\"></i>" +
-      depths[i] + (depths[i + 1] ? " to " + depths[i + 1] + "<br>" : "+");}
-    return div;};
+// use for loop to iterate through colors and depths; pair color with orresponding depth, using index position.
+  for (var i = 0; i < depths.length; i++) {
+    console.log(colors[i]);
+    div.innerHTML +=
+    "<i style=\"background: " + colors[i] + "\"></i>" +
+    depths[i] + (depths[i + 1] ? " to " + depths[i + 1] + "<br>" : "+");}
+  return div;};
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // store URL for all earthquake data
@@ -128,6 +102,34 @@ function init() {
             
     });
 
+    /////////////////////// SET UP MAP COMPONENTS ////////////////////////////////////////////////////////////
+    // initialize standard background using tile layer
+    let standard =  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    // initialize an object to hold map backgrounds options -- backgroundMaps.
+    let background = {
+    "Standard": standard,
+    };
+
+    // declare LayerGroups for each dataset to plot
+    //https://leafletjs.com/examples/layers-control/, https://leafletjs.com/reference.html#layergroup
+    let allEarthquakes = new L.LayerGroup();
+
+    // initialize map with standard background -- lat/long are for san andreas fault line
+    let map = L.map("map-id", {
+    center: [40.5, -90.5],
+    zoom: 4,
+    layers: [standard]});
+
+    // initialize overlay object to add to layer control.
+    let overlay = {
+    "Earthquakes - All": allEarthquakes};
+
+    // create control layer -- add overlay and background map
+    L.control.layers(background, overlay).addTo(map);
+    
     // add markers to map
     allEarthquakes.addTo(map);
 
