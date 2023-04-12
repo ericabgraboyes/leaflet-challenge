@@ -1,3 +1,16 @@
+// initialize map object with standard background -- lat/long are for san andreas fault line
+let map = L.map("map-id", {
+  center: [40.5, -90.5],
+  zoom: 4});
+
+// create tile layer - base background
+standard = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  });
+
+// add tile layer to map
+standard.addTo(map)
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // functions to style earthquake markers / https://www.color-hex.com/color-palettes/?page=4 (color scheme)
 
@@ -57,7 +70,7 @@ function init() {
         // // initialize array to see all earthquake depths
         // let depthArray = []
 
-        // // can also use .filter and arrow function to filter data; apply for loop to new variable. .filter function filters on all records
+        // can also use .filter and arrow function to filter data; apply for loop to new variable.
         // let filteredata = features.filter(f => f.geometry.coordinates[2] >= 500)
         // console.log(filteredata)
 
@@ -84,7 +97,6 @@ function init() {
             let date = new Date (properties.time);
 
             // create marker for each earthquake. bind popup with earthquake information
-            // stroke = false - disables borders on circles
             L.circleMarker([lat, lng], {
                 fillOpacity:1,
                 clickable: true,
@@ -93,7 +105,7 @@ function init() {
                 weight: 0.25,
                 fillColor: setColor(depth),
                 radius: setSize(size)})
-            .bindPopup(`<h4>${location}</h4><b>Magnitude</b>: ${size}<br/><b>Reported Depth (km):</b> ${depth} km<br>Time: ${date.toDateString()}`).addTo(allEarthquakes)
+            .bindPopup(`<h4>${location}</h4><b>Magnitude</b>: ${size}<br/><b>Reported Depth (km):</b> ${depth} km<br>Time: ${date.toDateString()}`).addTo(map)
         };
       
             // // generate list of earthquake depths for color function
@@ -101,38 +113,6 @@ function init() {
             // console.log('All depths',allDepths);            
             
     });
-
-    /////////////////////// SET UP MAP COMPONENTS ////////////////////////////////////////////////////////////
-    // initialize standard background using tile layer
-    let standard =  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    });
-
-    // initialize an object to hold map backgrounds options -- backgroundMaps.
-    let background = {
-    "Standard": standard,
-    };
-
-    // declare LayerGroups for each dataset to plot
-    //https://leafletjs.com/examples/layers-control/, https://leafletjs.com/reference.html#layergroup
-    let allEarthquakes = new L.LayerGroup();
-
-    // initialize map with standard background -- lat/long are for san andreas fault line
-    let map = L.map("map-id", {
-    center: [40.5, -90.5],
-    zoom: 4,
-    layers: [standard]});
-
-    // initialize overlay object to add to layer control.
-    let overlay = {
-    "Earthquakes - All": allEarthquakes};
-
-    // create control layer -- add overlay and background map
-    L.control.layers(background, overlay).addTo(map);
-    
-    // add markers to map
-    allEarthquakes.addTo(map);
-
     // add legend to map
     legend.addTo(map)
     
